@@ -1,8 +1,9 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const user_routes = require('./api/routes/user')
 
-const db = () => {
+const database_connection = () => {
     try{
         mongoose.connect('mongodb://127.0.0.1:27017/Node-Chat-App', {
             useNewUrlParser: true,
@@ -12,4 +13,8 @@ const db = () => {
     } catch(error){
         console.log('Database connection failed')
     }
+}
+
+const routes = () => {
+    app.use('/user', user_routes)
 }
