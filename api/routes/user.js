@@ -3,6 +3,7 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const User = require('../models')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const user_signup = () => {
     router.post('/signup', (req, res, next) => {
@@ -58,11 +59,18 @@ const user_login = () => {
                     })
                 }
                 if (result){
-                    console.log(result)
+                    const token = jwt.sign({
+                        username: user.username,
+                        user_id: user._id
+                    }, process.env.JWT_KEY, { expiresIn: "24h" }
+                    )
                     res.status(200).json({
                         message: "Auth successful"
                     })
                 }
+                res.status(401).json({
+                    message: "Auth failed"
+                })
             })
         })
     })
