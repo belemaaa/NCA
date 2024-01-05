@@ -20,7 +20,7 @@ const user_signup = () => {
                         })
                     } else{
                         const user = new User({
-                            _id: mongoose.Types.ObjectId(),
+                            _id: new mongoose.Types.ObjectId(),
                             username: req.body.username,
                             email: req.body.email,
                             password: hashed_pwd
@@ -51,20 +51,18 @@ const user_login = () => {
                     message: "Auth failed"
                 })
             }
-            bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+            bcrypt.compare(req.body.password, user.password, (err, result) => {
                 if (err){
                     res.status(401).json({
                         message: "Auth failed"
                     })
                 }
                 if (result){
+                    console.log(result)
                     res.status(200).json({
                         message: "Auth successful"
                     })
                 }
-                res.status(401).json({
-                    message: "Auth failed"
-                })
             })
         })
     })
