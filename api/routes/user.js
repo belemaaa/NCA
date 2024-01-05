@@ -43,5 +43,33 @@ const user_signup = () => {
     })
 }
 
+const user_login = () => {
+    router.post('/login', (req, res, next) => {
+        User.findOne({username: req.body.username}).exec().then(user => {
+            if (user.length < 1){
+                res.status(401).json({
+                    message: "Auth failed"
+                })
+            }
+            bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                if (err){
+                    res.status(401).json({
+                        message: "Auth failed"
+                    })
+                }
+                if (result){
+                    res.status(200).json({
+                        message: "Auth successful"
+                    })
+                }
+                res.status(401).json({
+                    message: "Auth failed"
+                })
+            })
+        })
+    })
+}
+
 user_signup()
+user_login()
 module.exports = router
