@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const morgan = require('morgan')
 const user_routes = require('./api/routes/user')
 
 const database_connection = () => {
@@ -14,7 +16,17 @@ const database_connection = () => {
         console.log('Database connection failed')
     }
 }
+const middlewares = () => {
+    app.use(morgan('dev'))
+    app.use(bodyParser.urlencoded({extended: false}))
+    app.use(bodyParser.json())
+}
 
 const routes = () => {
     app.use('/user', user_routes)
 }
+
+database_connection()
+middlewares()
+routes()
+module.exports = app
