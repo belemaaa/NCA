@@ -19,13 +19,15 @@ const user_signup = () => {
                         res.status(500).json({
                             error: err
                         })
-                    } else{
+                    } 
+                    else{ 
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             username: req.body.username,
                             email: req.body.email,
                             password: hashed_pwd
                         })
+
                         user.save().then(result => {
                             console.log(result)
                             res.status(201).json({
