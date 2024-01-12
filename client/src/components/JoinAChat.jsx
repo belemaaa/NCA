@@ -1,22 +1,19 @@
-import './App.css';
-import io from 'socket.io-client'
 import React, { useState } from 'react'
+import { Socket } from 'socket.io-client'
 
-const socket = io.connect("http://localhost:3001")
+const JoinAChat = () => {
+    const [username, setUsername] = useState('')
+    const [room, setRoom] = useState()
 
-function App() {
-  const [username, setUsername] = useState('')
-  const [room, setRoom] = useState()
-
-  const JoinRoom = () => {
-      if (username !== "" && room !== "") {
-          socket.emit("join_room", room)
-      }
-  }
+    const JoinRoom = () => {
+        if (username !== "" && room !== "") {
+            Socket.emit("join_room", room)
+        }
+    }
 
   return (
     <div>
-      <h3>Join A Chat</h3>
+        <h3>Join A Chat</h3>
         <form>
             <input 
                 type='text' 
@@ -30,10 +27,10 @@ function App() {
                 onChange={(e) => {setRoom(e.target.value)}}
             />
 
-            <button>Join a Room</button>
+            <button>Join a rOOM</button>
         </form>
     </div>
-  );
+  )
 }
 
-export default App;
+export default JoinAChat

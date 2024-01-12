@@ -17,8 +17,12 @@ const io = new Server(server, {
 // establish socket connection
 io.on("connection", (socket) => {
     try{
-        console.log(socket.id)
-        console.log("Client connected")
+        console.log(`Client connected: ${socket.id}`)
+
+        socket.on("join_room", (room) => {
+            socket.join(room)
+        })
+
         socket.on("disconnect", () => {
             console.log("user disconnected", socket.id)
         })
