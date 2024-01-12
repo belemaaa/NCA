@@ -8,7 +8,9 @@ function App() {
   const [username, setUsername] = useState('')
   const [room, setRoom] = useState()
 
-  const JoinRoom = () => {
+  const JoinRoom = (e) => {
+    e.preventDefault()
+    
       if (username !== "" && room !== "") {
           socket.emit("join_room", room)
       }
@@ -17,7 +19,7 @@ function App() {
   return (
     <div>
       <h3>Join A Chat</h3>
-        <form>
+        <form onSubmit={JoinRoom}> 
             <input 
                 type='text' 
                 placeholder='Username' 
@@ -30,7 +32,7 @@ function App() {
                 onChange={(e) => {setRoom(e.target.value)}}
             />
 
-            <button>Join a Room</button>
+            <button type='submit'>Join a Room</button>
         </form>
     </div>
   );
