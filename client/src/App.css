@@ -131,7 +131,6 @@ body {
 
 #you .message-meta {
     justify-content: flex-end;
-    /* margin-left: 5px; */
 }
 
 #other {
@@ -145,7 +144,6 @@ body {
 
 #other .message-meta {
     justify-content: flex-start;
-    /* margin-right: 5px; */
 }
 
 .message-meta #author {
